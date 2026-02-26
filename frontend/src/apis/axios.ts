@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://43.201.122.57:8080',
+  baseURL: 'https://api.momentum57.cloud',
   headers: {
     'Content-Type': 'application/json',
   },
