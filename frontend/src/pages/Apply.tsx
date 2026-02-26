@@ -118,6 +118,8 @@ const Apply = () => {
       }
     } catch (e) {
       console.error('신청 실패', e);
+      const errorMessage = e instanceof Error ? e.message : (e as any)?.response?.data?.message || '알 수 없는 오류';
+      alert('신청 실패: ' + errorMessage);
       setPopup1(false)
       setPopup4(true);
     }
