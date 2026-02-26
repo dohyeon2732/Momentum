@@ -1,0 +1,12 @@
+.DS_Store
+
+# frontend
+frontend/node_modules
+frontend/dist
+frontend/.env
+
+# backend
+backend/build
+backend/.gradle
+backend/*.log
+backend/.env
