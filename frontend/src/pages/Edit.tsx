@@ -200,7 +200,9 @@ useEffect(()=>{
           <p className="text-base font-semibold">사용 인원</p>
           <input
             className="w-64 py-2 px-3 rounded bg-zinc-100 text-left"
-            type="number"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
             placeholder="사용 인원 입력"
             value = {people}
             onChange={(e) => setPeople(Number(e.target.value))}
