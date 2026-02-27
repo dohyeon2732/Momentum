@@ -10,7 +10,7 @@ function App() {
       api.get("/users/me")
       .catch(()=>{
         localStorage.removeItem("accessToken");
-        window.location.href = "/login";
+        window.location.href = "/";
       })
     }
   },[]);
