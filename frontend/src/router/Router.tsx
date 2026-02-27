@@ -8,18 +8,23 @@ import Password from '../pages/Password';
 import type { JSX } from 'react';
 
 
-const requireAuth = (element: JSX.Element) => {
-  const token = localStorage.getItem('accessToken');
-  return token?element:<Navigate to="/" replace />;
-}
+
+
+const AuthGuard = ({ children }: { children: JSX.Element }) => {
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
 
 const router = createBrowserRouter([
   { path: '/', element: <Login />},
-  { path: '/home', element: requireAuth(<Home />) },
-  { path: '/schedule', element: requireAuth(<Schedule />) },
-  { path: '/apply', element: requireAuth(<Apply />) },
-  { path: '/edit', element: requireAuth(<Edit />) },
-  { path: '/password', element: requireAuth(<Password />) },
+  { path: '/home', element: <AuthGuard><Home /></AuthGuard> },
+  { path: '/schedule', element: <AuthGuard><Schedule /></AuthGuard> },
+  { path: '/apply', element: <AuthGuard><Apply /></AuthGuard> },
+  { path: '/edit', element: <AuthGuard><Edit /></AuthGuard> },
+  { path: '/password', element: <AuthGuard><Password /></AuthGuard> },
 ]);
 
 const AppRouter = () => <RouterProvider router={router} />;
