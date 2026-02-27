@@ -8,10 +8,10 @@ import Password from '../pages/Password';
 import type { JSX } from 'react';
 
 
-const requireAuth = (element: JSX.Element) => {
-  const token = localStorage.getItem('accessToken');
-  return token?element:<Navigate to="/" replace />;
-}
+// const requireAuth = (element: JSX.Element) => {
+//   const token = localStorage.getItem('accessToken');
+//   return token?element:<Navigate to="/" replace />;
+// }
 
 const router = createBrowserRouter([
   { path: '/', element: <Login />},
