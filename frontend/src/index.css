@@ -2,10 +2,16 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 html,
-body,
-#root {
-  width: 100%;
+body
+ {
+  width: 393px;
   height: 100%;
+      margin: 0 auto;
+}
+
+#root{
+  width: 393px;
+      margin: 0 auto;
 }
 
 /* Base */
@@ -22,8 +28,6 @@ body {
     sans-serif;
 
   padding-top: 100px;
-  padding-left: 20px;
-  padding-right: 20px;
   background: #ffffff;
   color: #000000;
 }

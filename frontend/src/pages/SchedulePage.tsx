@@ -143,7 +143,7 @@ const currentDate = parseTodayToDate();
 
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className='w-[393px] flex flex-col items-center justify-center gap-4'>
       <MobileTopBar
         dept={userKuk}
         name={userName}

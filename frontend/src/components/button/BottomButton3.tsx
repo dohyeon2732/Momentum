@@ -22,7 +22,7 @@ const BottomButton = ({
   onClick3,
 }: BlueButtonProps) => {
   return (
-    <div>
+    <div className="w-[393px] flex justify-center items-center">
       <button
         className={`w-88.25 h-[50px] fixed bottom-36 font-bold ${color1 === 'blue' ? 'bg-[#86A6FF] text-white' : color1 === 'lightblue' ? 'bg-[#D9E3FF] text-[#1A49CB]' : color1 === 'red' ? 'bg-[#FFA193] text-white' : 'bg-gray-400 text-white'}  rounded-lg `}
         onClick={onClick1}

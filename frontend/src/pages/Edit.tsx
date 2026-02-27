@@ -164,8 +164,7 @@ useEffect(()=>{
     }, []);
 
   return (
-
-    <div>
+    <div className='w-[393px] flex flex-col items-center justify-center '>
       <MobileTopBar
         dept={userKuk}
         name={userName}

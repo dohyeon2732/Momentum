@@ -13,7 +13,7 @@ const MobileTopBar = ({ dept, name, title, back, buttonOn }: MobileTopBarProps) 
   const navigate = useNavigate();
 
   return (
-    <div className="fixed top-0 left-0 px-10 z-9999 flex flex-row justify-between items-center w-[393px] h-20 bg-white shadow-[0px_2px_2px_0px_rgba(0,0,0,0.05)]">
+    <div className="fixed  top-0 px-10 z-9999 flex flex-row justify-between items-center w-[393px] h-20 bg-white shadow-[0px_2px_2px_0px_rgba(0,0,0,0.05)]">
       <button
         className={`${back ? '' : 'invisible'} `}
         onClick={() => navigate('/home')}

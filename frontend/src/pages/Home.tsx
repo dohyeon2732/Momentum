@@ -57,7 +57,7 @@ const Home = () => {
   }, [userId]);
 
   return (
-    <div>
+    <div className='w-[393px] flex flex-col items-center justify-center'>
       <MobileTopBar
       buttonOn={true}
         dept={userKuk}
@@ -65,8 +65,8 @@ const Home = () => {
         title="회의 공간 사용 신청"
         back={false}
       />
-      <div className="flex flex-col gap-5">
-        <div className="flex flex-col gap-2">
+      <div className="flex flex-col w-[353px] gap-5">
+        <div className="flex flex-col  gap-2">
           <p className="text-base font-medium">내가 신청한 내역</p>
           {upcoming.map((s) => (
             <div
