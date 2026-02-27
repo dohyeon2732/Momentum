@@ -15,11 +15,11 @@ const requireAuth = (element: JSX.Element) => {
 
 const router = createBrowserRouter([
   { path: '/', element: <Login />},
-  { path: '/home', element: requireAuth(<Home />) },
-  { path: '/schedule', element: requireAuth(<Schedule />) },
-  { path: '/apply', element: requireAuth(<Apply />) },
-  { path: '/edit', element: requireAuth(<Edit />) },
-  { path: '/password', element: requireAuth(<Password />) },
+  { path: '/home', element: (<Home />) },
+  { path: '/schedule', element: (<Schedule />) },
+  { path: '/apply', element: (<Apply />) },
+  { path: '/edit', element: (<Edit />) },
+  { path: '/password', element: (<Password />) },
 ]);
 
 const AppRouter = () => <RouterProvider router={router} />;
