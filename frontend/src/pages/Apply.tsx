@@ -100,7 +100,9 @@ const Apply = () => {
         userId: userId,
         scheduleDate: String(date).slice(0, 10).replaceAll('.', '-'),
         startTime: String(startTime).replace('시', '') + ':00',
-        endTime: String(endTime).replace('시', '') + ':00',
+        endTime: endTime.slice(0, 2) === '24'
+          ? '00:00'
+          : endTime.slice(0, 2) + ':00',  
         schedulePeople: people,
       });
 

@@ -96,7 +96,10 @@ const editHandle = async () => {
     userId: schedule.userId,
     scheduleDate: date.slice(0, 10).replaceAll('.', '-'),
     startTime: String(startTime.slice(0, 2)).padStart(2, '0') + ':00',
-    endTime: String(endTime.slice(0, 2)).padStart(2, '0') + ':00',
+    endTime:
+      endTime.slice(0, 2) === '24'
+        ? '00:00'
+        : endTime.slice(0, 2) + ':00',
     schedulePeople: people,
   });
 

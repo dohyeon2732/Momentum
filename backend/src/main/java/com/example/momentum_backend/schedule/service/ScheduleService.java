@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,11 +88,18 @@ public class ScheduleService {
             throw new RuntimeException("user has no kuk");
         }
 
+        LocalTime startTime = dto.getStartTime();
+        LocalTime endTime = dto.getEndTime();
+
+        if(endTime.equals(LocalTime.MIDNIGHT)&& startTime.isAfter(endTime)){
+            endTime=LocalTime.MAX;
+        }
+
         boolean exists = scheduleRepository.existsOverlappingScheduleExceptSelf(
                 dto.getRoomId(),
                 dto.getScheduleDate(),
-                dto.getStartTime(),
-                dto.getEndTime(),
+                startTime,
+                endTime,
                 id
         );
 
@@ -105,8 +113,8 @@ public class ScheduleService {
         schedule.setUser(user);
         schedule.setKuk(kuk);
         schedule.setScheduleDate(dto.getScheduleDate());
-        schedule.setScheduleStartTime(dto.getStartTime());
-        schedule.setScheduleEndTime(dto.getEndTime());
+        schedule.setScheduleStartTime(startTime);
+        schedule.setScheduleEndTime(endTime);
         schedule.setSchedulePeople(dto.getSchedulePeople());
 
         return ScheduleResponseDto.from(schedule);
