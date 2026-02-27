@@ -40,7 +40,22 @@ public class ScheduleService {
             throw new RuntimeException("user has no kuk");
         }
 
-        boolean exists = scheduleRepository.existsOverlappingSchedule(dto.getRoomId(),dto.getScheduleDate(),dto.getStartTime(),dto.getEndTime());
+//        boolean exists = scheduleRepository.existsOverlappingSchedule(dto.getRoomId(),dto.getScheduleDate(),dto.getStartTime(),dto.getEndTime());
+
+        LocalTime startTime = dto.getStartTime();
+        LocalTime endTime = dto.getEndTime();
+
+        if(endTime.equals(LocalTime.MIDNIGHT)&&startTime.isAfter(endTime)){
+            endTime = LocalTime.of(23,59);
+        }
+
+        boolean exists = scheduleRepository.existsOverlappingSchedule(
+                dto.getRoomId(),
+                dto.getScheduleDate(),
+                startTime,
+                endTime
+        );
+
 
         if(exists){
             throw new RuntimeException("시간 중복 발생");
@@ -54,8 +69,8 @@ public class ScheduleService {
                 .user(user)
                 .kuk(kuk)
                 .scheduleDate(dto.getScheduleDate())
-                .scheduleStartTime(dto.getStartTime())
-                .scheduleEndTime(dto.getEndTime())
+                .scheduleStartTime(startTime)
+                .scheduleEndTime(endTime)
                 .schedulePeople(dto.getSchedulePeople())
                 .build();
 
@@ -92,7 +107,7 @@ public class ScheduleService {
         LocalTime endTime = dto.getEndTime();
 
         if(endTime.equals(LocalTime.MIDNIGHT)&& startTime.isAfter(endTime)){
-            endTime=LocalTime.MAX;
+            endTime=LocalTime.of(23,59);
         }
 
         boolean exists = scheduleRepository.existsOverlappingScheduleExceptSelf(
