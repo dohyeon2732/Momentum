@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import MobileTopBar from '../components/MobileTopBar';
 import BottomButton from '../components/button/BottomButton';
 import { useUserApi } from '../hooks/useUserApi';
@@ -57,15 +57,15 @@ const Home = () => {
   }, [userId]);
 
   return (
-    <div className='w-[393px] flex flex-col items-center justify-center'>
+    <div className="w-[393px] flex flex-col items-center justify-center">
       <MobileTopBar
-      buttonOn={true}
+        buttonOn={true}
         dept={userKuk}
         name={userName}
         title="회의 공간 사용 신청"
         back={false}
       />
-      <div className="flex flex-col w-[353px] gap-5">
+      <div className="flex flex-col mb-[150px] w-[353px] gap-5">
         <div className="flex flex-col  gap-2">
           <p className="text-base font-medium">내가 신청한 내역</p>
           {upcoming.map((s) => (
@@ -74,13 +74,22 @@ const Home = () => {
               className="flex flex-row justify-between items-center w-88.25 px-4 py-3 bg-zinc-100 rounded-lg gap-3.5"
             >
               <div className="flex flex-col">
-                <p className="text-xl font-semibold w-62 whitespace-normal break-words">{s.scheduleName}</p>
+                <p className="text-xl font-semibold w-62 whitespace-normal break-words">
+                  {s.scheduleName}
+                </p>
                 <p className="text-base font-medium">{s.roomName}</p>
                 <p className="text-base font-medium">{formatDateTime(s)}</p>
               </div>
-              <button className="w-15 h-8.5 flex items-center justify-center bg-[#86A6FF] rounded-lg" onClick={()=>navigate('/edit',{state:{
-               schedule:s,
-              },})}>
+              <button
+                className="w-15 h-8.5 flex items-center justify-center bg-[#86A6FF] rounded-lg"
+                onClick={() =>
+                  navigate('/edit', {
+                    state: {
+                      schedule: s,
+                    },
+                  })
+                }
+              >
                 <p className="text-white text-base font-bold">수정</p>
               </button>
             </div>
@@ -99,7 +108,9 @@ const Home = () => {
               className="flex flex-row justify-between items-center w-88.25 px-4 py-3 bg-zinc-100  rounded-lg gap-3.5"
             >
               <div className="flex flex-col">
-                <p className="text-xl font-semibold w-62 whitespace-normal break-words">{s.scheduleName}</p>
+                <p className="text-xl font-semibold w-62 whitespace-normal break-words">
+                  {s.scheduleName}
+                </p>
                 <p className="text-base font-medium">{s.roomName}</p>
                 <p className="text-base font-medium">{formatDateTime(s)}</p>
               </div>
