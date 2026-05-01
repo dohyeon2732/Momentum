@@ -1,68 +1,66 @@
-import { useEffect, useState } from "react";
-import { useUserApi } from "../hooks/useUserApi";
-import MobileTopBar from "../components/MobileTopBar";
-import BottomButton from "../components/button/BottomButton";
-import PopUpCard from "../components/PopUpCard";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useUserApi } from '../hooks/useUserApi';
+import MobileTopBar from '../components/MobileTopBar';
+import BottomButton from '../components/button/BottomButton';
+import PopUpCard from '../components/PopUpCard';
+import { useNavigate } from 'react-router-dom';
 
-const Password = ()=>{
-      const [userName, setUserName] = useState('');
-      const [userKuk, setUserKuk] = useState('');
+const Password = () => {
+  const [userName, setUserName] = useState('');
+  const [userKuk, setUserKuk] = useState('');
 
-      const [popup1, setPopup1] = useState(false);
-      const [popup2, setPopup2] = useState(false);
-      const [popup3, setPopup3] = useState(false);
-      const [popup4, setPopup4] = useState(false);
+  const [popup1, setPopup1] = useState(false);
+  const [popup2, setPopup2] = useState(false);
+  const [popup3, setPopup3] = useState(false);
+  const [popup4, setPopup4] = useState(false);
 
+  const [old, setOld] = useState('');
+  const [newPw, setNewPw] = useState('');
+  const [newPwCheck, setNewPwCheck] = useState('');
 
-      const [old, setOld] = useState('');
-        const [newPw, setNewPw] = useState('');
-        const [newPwCheck, setNewPwCheck] = useState('');
+  const navigate = useNavigate();
 
-        const navigate = useNavigate();
+  const handleApply = async () => {
+    try {
+      if (newPw !== newPwCheck) {
+        alert('신규 비밀번호가 일치하지 않습니다.');
 
-        const handleApply = async () => {
-            try{
-              if(newPw!==newPwCheck){
-                alert('신규 비밀번호가 일치하지 않습니다.');
+        return;
+      }
+      const res = await useUserApi.changePassword({
+        currentPassword: old,
+        newPassword: newPw,
+      });
 
-                return;
-              }
-                const res = await useUserApi.changePassword({
-                  currentPassword:old,
-                  newPassword:newPw,
-                })
+      if (res.status === 200) {
+        console.log('비밀번호 변경 성공', res);
+        navigate('/home');
+      } else {
+        console.error('비밀번호 변경 실패', res);
+      }
+    } catch (e) {
+      console.error('비밀번호 변경 실패', e);
+    }
+  };
 
-                if(res.status === 200){
-                  console.log('비밀번호 변경 성공', res);
-                  navigate('/home');
-                }else{
-                  console.error('비밀번호 변경 실패', res);
-                }
-            }catch(e){
-                console.error('비밀번호 변경 실패', e);
-            }
-        };
+  useEffect(() => {
+    {
+      const fetchMe = async () => {
+        try {
+          const res = await useUserApi.me();
+          setUserName(res.data.userName);
+          setUserKuk(res.data.kukName);
+        } catch (e) {
+          console.error('내 정보 조회 실패', e);
+        }
+      };
+      fetchMe();
+    }
+  }, []);
 
-
-        useEffect(() => {
-          {
-            const fetchMe = async () => {
-              try {
-                const res = await useUserApi.me();
-                setUserName(res.data.userName);
-                setUserKuk(res.data.kukName);
-              } catch (e) {
-                console.error('내 정보 조회 실패', e);
-              }
-            };
-            fetchMe();
-          }
-        }, []);
-
-
-    return <div>
-        <MobileTopBar
+  return (
+    <div className="w-[393px] flex flex-col items-center justify-center">
+      <MobileTopBar
         dept={userKuk}
         name={userName}
         title="회의 공간 사용 신청"
@@ -99,7 +97,6 @@ const Password = ()=>{
             onChange={(v) => setNewPwCheck(v.target.value)}
           />
         </div>
-        
       </div>
 
       <BottomButton
@@ -110,7 +107,6 @@ const Password = ()=>{
         color2={'blue'}
         onClick2={() => setPopup1(true)}
       />
-      
 
       <PopUpCard
         isOpen={popup1}
@@ -140,13 +136,12 @@ const Password = ()=>{
         onSecondClick={() => {
           navigate('/home');
           setOld('');
-            setNewPw('');
-            setNewPwCheck('');
+          setNewPw('');
+          setNewPwCheck('');
         }}
       />
 
-
-<PopUpCard
+      <PopUpCard
         isOpen={popup3}
         onRequestClose={() => setPopup3(false)}
         title={'입력 오류'}
@@ -167,10 +162,8 @@ const Password = ()=>{
         first="돌아가기"
         onFirstClick={() => setPopup4(false)}
       />
-
-      
-
     </div>
-}
+  );
+};
 
 export default Password;
