@@ -100,13 +100,10 @@ const Apply = () => {
         userId: userId,
         scheduleDate: String(date).slice(0, 10).replaceAll('.', '-'),
         startTime: String(startTime).replace('시', '') + ':00',
-        endTime: endTime.slice(0, 2) === '24'
-          ? '00:00'
-          : endTime.slice(0, 2) + ':00',  
+        endTime:
+          endTime.slice(0, 2) === '24' ? '00:00' : endTime.slice(0, 2) + ':00',
         schedulePeople: people,
       });
-
-      
 
       setDuty('');
       setPeople(0);
@@ -114,21 +111,24 @@ const Apply = () => {
       setStartTime('');
       setEndTime('');
       setSelectedRoom({ roomId: '', roomName: '' });
-      
+
       if (res.status === 200 || res.status === 201) {
         navigate('/home');
       }
     } catch (e) {
       console.error('신청 실패', e);
-      const errorMessage = e instanceof Error ? e.message : (e as any)?.response?.data?.message || '알 수 없는 오류';
+      const errorMessage =
+        e instanceof Error
+          ? e.message
+          : (e as any)?.response?.data?.message || '알 수 없는 오류';
       alert('신청 실패: ' + errorMessage);
-      setPopup1(false)
+      setPopup1(false);
       setPopup4(true);
     }
   };
 
   return (
-    <div>
+    <div className="w-[393px] flex flex-col items-center justify-center">
       <MobileTopBar
         dept={userKuk}
         name={userName}
@@ -164,8 +164,8 @@ const Apply = () => {
           <input
             className="w-64 py-2 px-3 rounded bg-zinc-100 text-left"
             type="text"
-            inputMode='numeric'
-            pattern='[0-9]*'
+            inputMode="numeric"
+            pattern="[0-9]*"
             placeholder="사용 인원 입력"
             value={people}
             onChange={(v) => setPeople(Number(v.target.value))}
@@ -196,7 +196,7 @@ const Apply = () => {
                   TIME_OPTIONS.indexOf(endTime) <= TIME_OPTIONS.indexOf(v)
                 ) {
                   setEndTime('');
-                } 
+                }
               }}
             />
             <p className="text-2xl font-bold">~</p>
@@ -211,7 +211,7 @@ const Apply = () => {
               value={endTime}
               onChange={(v) => {
                 setEndTime(v);
-                          }}  
+              }}
             />
           </div>
         </div>
